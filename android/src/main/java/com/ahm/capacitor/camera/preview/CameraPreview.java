@@ -361,6 +361,34 @@ public class CameraPreview extends Plugin implements CameraActivity.CameraPrevie
                             ((ViewGroup) getBridge().getWebView().getParent()).addView(containerView);
                             if (toBack == true) {
                                 getBridge().getWebView().getParent().bringChildToFront(getBridge().getWebView());
+                                new android.os.Handler().postDelayed(
+                                new Runnable() {
+                                    @Override
+                                    public void run() {
+                                      getBridge().getWebView().dispatchTouchEvent(
+                                        MotionEvent.obtain(
+                                        System.currentTimeMillis(),
+                                        System.currentTimeMillis(),
+                                        MotionEvent.ACTION_DOWN,
+                                        0,
+                                        0,
+                                        0
+                                        )
+                                      );
+                                      getBridge().getWebView().dispatchTouchEvent(
+                                      MotionEvent.obtain(
+                                      System.currentTimeMillis(),
+                                      System.currentTimeMillis(),
+                                      MotionEvent.ACTION_UP,
+                                      0,
+                                      0,
+                                      0
+                                      )
+                                    );
+                                    }
+                                },
+                                    1500
+                                );
                                 setupBroadcast();
                             }
 
